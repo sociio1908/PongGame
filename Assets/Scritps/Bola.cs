@@ -26,8 +26,8 @@ public class Bola : MonoBehaviour
       //Recupero el componente audio source;
       fuenteDeAudio = GetComponent<AudioSource>();
       //Pongo los contadores a 0
-      contadorIzquierda.text = golesIzquierda.ToString();
-      contadorDerecha.text = golesDerecha.ToString();
+      contadorIzquierda.text = golesIzquierda.ToString()+ " GOLES";
+      contadorDerecha.text = golesDerecha.ToString()+ " GOLES";
    }
    //Se ejecuta si choco con la raqueta
    void OnCollisionEnter2D(Collision2D micolision){
@@ -92,7 +92,7 @@ public class Bola : MonoBehaviour
          //Incremento goles al de la derecha
          golesDerecha++;
          //Lo escribo en el marcador
-         contadorDerecha.text = golesDerecha.ToString();
+         contadorDerecha.text = golesDerecha.ToString()+ " GOLES";
          //Reinicio la bola
          GetComponent<Rigidbody2D>().velocity = new Vector2(1,-1) *
          velocidad;
@@ -102,7 +102,7 @@ public class Bola : MonoBehaviour
          //Incremento goles al de la izquierda
          golesIzquierda++;
          //Lo escribo en el marcador
-         contadorIzquierda.text = golesIzquierda.ToString();
+         contadorIzquierda.text = golesIzquierda.ToString() + " GOLES";
          //Reinicio la bola
          GetComponent<Rigidbody2D>().velocity = new Vector2(-1,1) * velocidad;
          //Vector2.right es lo mismo que new Vector2(-1,0)
