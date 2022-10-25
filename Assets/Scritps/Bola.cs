@@ -110,5 +110,10 @@ public class Bola : MonoBehaviour
       //Reproduzco el sonido del gol
       fuenteDeAudio.clip = audioGol;
       fuenteDeAudio.Play();
-}
+   }
+   void Update () {
+      //Incremento la velocidad de la bola
+      velocidad = velocidad + 0.01f;
+   }
+
 }
