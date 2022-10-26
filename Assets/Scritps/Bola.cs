@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Bola : MonoBehaviour
 {
@@ -12,23 +13,31 @@ public class Bola : MonoBehaviour
    //Audio Source
    AudioSource fuenteDeAudio;
    //Clips de audio
-   public AudioClip audioGol, audioRaqueta, audioRebote;
+   public AudioClip audioGol, audioRaqueta, audioRebote, inicio, fin;
    //Contadores de goles
-   public int golesIzquierda = 0;
-   public int golesDerecha = 0;
+   public int golesIzquierda = 0, golesDerecha = 0, golesGanar=5;
    //Cajas de texto de los contadores
    public TextMeshProUGUI contadorIzquierda;
    public TextMeshProUGUI contadorDerecha;
+   private float Delay1 = 5.0f; 
+   private float velocidadBola=0.0f;
    // Use this for initialization
    void Start () {
+     
+      //Recupero el componente audio source;
+       fuenteDeAudio = GetComponent<AudioSource>();
+       fuenteDeAudio.clip = inicio;
+       fuenteDeAudio.Play();
+       StartCoroutine(Timer1());
+
       //Velocidad inicial hacia la derecha
       GetComponent<Rigidbody2D>().velocity = Vector2.right * velocidad;
-      //Recupero el componente audio source;
-      fuenteDeAudio = GetComponent<AudioSource>();
+     
       //Pongo los contadores a 0
       contadorIzquierda.text = golesIzquierda.ToString()+ " GOLES";
       contadorDerecha.text = golesDerecha.ToString()+ " GOLES";
    }
+   
    //Se ejecuta si choco con la raqueta
    void OnCollisionEnter2D(Collision2D micolision){
       //Si me choco con la raqueta izquierda
@@ -82,11 +91,35 @@ public class Bola : MonoBehaviour
 
    //Reinicio la posición de la bola
    public void reiniciarBola(string direccion){
-      //Posición 0 de la bola
+
+
+      // Reiniciamos posición 0 de la bola
       transform.position = Vector2.zero;
-      //Vector2.zero es lo mismo que new Vector2(0,0);
-      //Velocidad inicial de la bola
-      velocidad = 30;
+
+      //valido si termina el juego
+      if(golesDerecha==golesGanar || golesIzquierda==golesGanar){
+      //Reproduzco el sonido de incio
+         fuenteDeAudio.clip = fin;
+         fuenteDeAudio.Play();
+        
+         if(golesDerecha==golesGanar){
+          contadorDerecha.text = "GANADOR";
+          contadorIzquierda.text = "F BRO - GOLES "+golesIzquierda;
+         }
+
+         if(golesIzquierda==golesGanar){
+          contadorIzquierda.text = "GANADOR";
+          contadorDerecha.text = "F BRO - GOLES "+golesDerecha;
+         }
+        
+         StartCoroutine(Timer1());
+         VolverMenu();
+      }
+  
+     //Velocidad inicial de la bola  
+      velocidadBola+=5.0f;
+      velocidad = velocidadBola + 30;
+
       //Velocidad y dirección
       if (direccion == "Derecha"){
          //Incremento goles al de la derecha
@@ -111,9 +144,17 @@ public class Bola : MonoBehaviour
       fuenteDeAudio.clip = audioGol;
       fuenteDeAudio.Play();
    }
-   void Update () {
-      //Incremento la velocidad de la bola
-      velocidad = velocidad + 0.01f;
-   }
+
+
+   IEnumerator Timer1()
+    {
+        yield return new WaitForSeconds(Delay1);
+ 
+    } 
+
+   public void VolverMenu(){
+       SceneManager.LoadScene("Inicio");
+       
+    }
 
 }

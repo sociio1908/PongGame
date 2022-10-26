@@ -8,41 +8,19 @@ using TMPro;
 public class GameManager : MonoBehaviour {
 
 
-   public TextMeshProUGUI ModoJuego;
-   public Button btnI; 
-       int cont =0;
-	
-  void Start(){
-    btnI.onClick.AddListener(TaskOnClick);
-  }
+   AudioSource fuenteDeAudio;
+   //Clips de audio
+   public AudioClip inicio; 
 
 void Update () {
+
     //Si pulsa la tecla P o hace clic izquierdo empieza el juego
-    //|| Input.GetMouseButton(0)
-    if (Input.GetKeyDown(KeyCode.P)){
-        //Cargo la escena de Juego
-        // Nombre de la scene del juego, en mi caso es SampleScene
+    if (Input.GetKeyDown(KeyCode.P) || Input.GetMouseButton(0)){
+        
         SceneManager.LoadScene("Juego");
     }
 
 }
-	void TaskOnClick(){
-         cont++;
-		Debug.Log ("CLICK: "+cont.ToString());
-        cambiarModo();
-    }
- 
- public void cambiarModo(){
 
-    if(ModoJuego.text.ToString() == "GOLES"){
-      ModoJuego.text = "TIEMPO";
-
-     }else{
-
-         ModoJuego.text = "GOLES";
-     }
-
- }
- 
 
 }

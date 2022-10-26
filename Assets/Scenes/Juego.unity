@@ -3071,8 +3071,11 @@ MonoBehaviour:
   audioGol: {fileID: 8300000, guid: e845ad198abcd0848bef66b3b2c65cec, type: 3}
   audioRaqueta: {fileID: 8300000, guid: 6da2a4c7bcb412a4a9251bc2d9a1d418, type: 3}
   audioRebote: {fileID: 8300000, guid: b8006865d86f83e43b6a25e32122928a, type: 3}
+  inicio: {fileID: 8300000, guid: a1cc1b796a8db8144ab7ac426a31fcd4, type: 3}
+  fin: {fileID: 8300000, guid: 1001745d3b4e5744a8a13e9d9c47bc94, type: 3}
   golesIzquierda: 0
   golesDerecha: 0
+  golesGanar: 5
   contadorIzquierda: {fileID: 150171652}
   contadorDerecha: {fileID: 27125113}
 --- !u!82 &2077067322
