@@ -18,24 +18,15 @@ public class Bola : MonoBehaviour
    public int golesIzquierda = 0, golesDerecha = 0, golesGanar=5;
    //Cajas de texto de los contadores
    public TextMeshProUGUI contadorIzquierda;
+   public TextMeshProUGUI ganadorTexto;
    public TextMeshProUGUI contadorDerecha;
-   private float Delay1 = 5.0f; 
+  // private float Delay1 = 5.0f; 
    private float velocidadBola=0.0f;
+   public Image Breiniciar, Bvolver;
+
    // Use this for initialization
    void Start () {
-     
-      //Recupero el componente audio source;
-       fuenteDeAudio = GetComponent<AudioSource>();
-       fuenteDeAudio.clip = inicio;
-       fuenteDeAudio.Play();
-       StartCoroutine(Timer1());
-
-      //Velocidad inicial hacia la derecha
-      GetComponent<Rigidbody2D>().velocity = Vector2.right * velocidad;
-     
-      //Pongo los contadores a 0
-      contadorIzquierda.text = golesIzquierda.ToString()+ " GOLES";
-      contadorDerecha.text = golesDerecha.ToString()+ " GOLES";
+      reiniciarJuego();
    }
    
    //Se ejecuta si choco con la raqueta
@@ -89,32 +80,41 @@ public class Bola : MonoBehaviour
    }
    }
 
+
+   public void FixedUpdate(){
+
+    if(golesDerecha==golesGanar || golesIzquierda==golesGanar){
+      
+         fuenteDeAudio.clip = fin;
+        fuenteDeAudio.Play();
+        mostrarGanador();
+    }
+   }
+
+   public void mostrarGanador(){
+      
+      //bola en cero
+      transform.position = Vector2.zero;
+
+         if(golesDerecha==golesGanar){
+          ganadorTexto.text = "* GANADOR PLAYER 2 *";
+         
+         }
+         if(golesIzquierda==golesGanar){
+          ganadorTexto.text = "* GANADOR PLAYER 1 *";
+         }
+ 
+      Breiniciar.enabled = true ;
+      Bvolver.enabled = true;
+      
+   }
+
+
    //Reinicio la posición de la bola
    public void reiniciarBola(string direccion){
 
-
       // Reiniciamos posición 0 de la bola
       transform.position = Vector2.zero;
-
-      //valido si termina el juego
-      if(golesDerecha==golesGanar || golesIzquierda==golesGanar){
-      //Reproduzco el sonido de incio
-         fuenteDeAudio.clip = fin;
-         fuenteDeAudio.Play();
-        
-         if(golesDerecha==golesGanar){
-          contadorDerecha.text = "GANADOR";
-          contadorIzquierda.text = "F BRO - GOLES "+golesIzquierda;
-         }
-
-         if(golesIzquierda==golesGanar){
-          contadorIzquierda.text = "GANADOR";
-          contadorDerecha.text = "F BRO - GOLES "+golesDerecha;
-         }
-        
-         StartCoroutine(Timer1());
-         VolverMenu();
-      }
   
      //Velocidad inicial de la bola  
       velocidadBola+=5.0f;
@@ -148,7 +148,13 @@ public class Bola : MonoBehaviour
 
    IEnumerator Timer1()
     {
-        yield return new WaitForSeconds(Delay1);
+        yield return new WaitForSeconds(5);
+ 
+    }    
+    
+    IEnumerator Timergano()
+    {
+        yield return new WaitForSeconds(3);
  
     } 
 
@@ -156,5 +162,29 @@ public class Bola : MonoBehaviour
        SceneManager.LoadScene("Inicio");
        
     }
+
+    public void reiniciarJuego(){
+            golesIzquierda = 0; golesDerecha = 0;
+      velocidad = 30.0f;
+      //Pongo los contadores a 0
+      contadorIzquierda.text = golesIzquierda.ToString()+ " GOLES";
+      contadorDerecha.text = golesDerecha.ToString()+ " GOLES";
+      ganadorTexto.text="";
+
+      //Recupero el componente audio source;
+       fuenteDeAudio = GetComponent<AudioSource>();
+      //  fuenteDeAudio.clip = inicio;
+      //  fuenteDeAudio.Play();
+       
+      fuenteDeAudio.PlayOneShot(inicio, 0.7F);
+
+      //Velocidad inicial hacia la derecha
+      GetComponent<Rigidbody2D>().velocity = Vector2.right * velocidad;
+
+      Breiniciar.enabled = false;
+      Bvolver.enabled = false;
+     
+   }
+    
 
 }

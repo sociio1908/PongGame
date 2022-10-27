@@ -7,20 +7,18 @@ using TMPro;
 
 public class GameManager : MonoBehaviour {
 
-
    AudioSource fuenteDeAudio;
    //Clips de audio
-   public AudioClip inicio; 
+   public AudioClip fin; 
 
-void Update () {
-
-    //Si pulsa la tecla P o hace clic izquierdo empieza el juego
-    if (Input.GetKeyDown(KeyCode.P) || Input.GetMouseButton(0)){
-        
+   public void IniciarJuego(){
         SceneManager.LoadScene("Juego");
+    }  
+    
+    public void SalirJuego(){
+        Debug.Log("SALIMOS");
+    Application.Quit();
     }
 
-}
-
-
+ 
 }

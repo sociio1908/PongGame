@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Porteria : MonoBehaviour {
 
+
     //detecto si la bola atraviesa la porteria
     void OnTriggerEnter2D(Collider2D bola) {
         if (bola.name == "Bola"){
         
+ 
+
             //Si es la portería izquierda
             if (this.name == "Izquierda"){
             
