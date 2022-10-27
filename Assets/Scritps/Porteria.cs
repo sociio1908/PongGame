@@ -9,8 +9,7 @@ public class Porteria : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D bola) {
         if (bola.name == "Bola"){
         
- 
-
+  
             //Si es la portería izquierda
             if (this.name == "Izquierda"){
             

@@ -624,7 +624,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 40
-  eje: Vertical
+  ejev: Vertical
+  ejeh: Horizontal
 --- !u!1 &178466770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,7 +2146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 40
-  eje: Vertical 2
+  ejev: Vertical 2
+  ejeh: Horizontal 2
 --- !u!1 &1300757070
 GameObject:
   m_ObjectHideFlags: 0
@@ -3764,7 +3766,7 @@ MonoBehaviour:
   fin: {fileID: 8300000, guid: 1001745d3b4e5744a8a13e9d9c47bc94, type: 3}
   golesIzquierda: 0
   golesDerecha: 0
-  golesGanar: 2
+  golesGanar: 5
   contadorIzquierda: {fileID: 150171652}
   ganadorTexto: {fileID: 1865275470}
   contadorDerecha: {fileID: 27125113}
