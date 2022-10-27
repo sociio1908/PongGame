@@ -80,21 +80,9 @@ public class Bola : MonoBehaviour
    }
    }
 
-
-   public void FixedUpdate(){
-
-    if(golesDerecha==golesGanar || golesIzquierda==golesGanar){
-      
-         fuenteDeAudio.clip = fin;
-        fuenteDeAudio.Play();
-        mostrarGanador();
-    }
-   }
-
    public void mostrarGanador(){
       
-      //bola en cero
-      transform.position = Vector2.zero;
+         GetComponent<Rigidbody2D>().velocity = Vector2.zero * 0;
 
          if(golesDerecha==golesGanar){
           ganadorTexto.text = "* GANADOR PLAYER 2 *";
@@ -116,7 +104,7 @@ public class Bola : MonoBehaviour
       // Reiniciamos posición 0 de la bola
       transform.position = Vector2.zero;
   
-     //Velocidad inicial de la bola  
+      //Velocidad inicial de la bola  
       velocidadBola+=5.0f;
       velocidad = velocidadBola + 30;
 
@@ -124,25 +112,44 @@ public class Bola : MonoBehaviour
       if (direccion == "Derecha"){
          //Incremento goles al de la derecha
          golesDerecha++;
+        
          //Lo escribo en el marcador
          contadorDerecha.text = golesDerecha.ToString()+ " GOLES";
-         //Reinicio la bola
-         GetComponent<Rigidbody2D>().velocity = new Vector2(1,-1) *
-         velocidad;
+         
          //Vector2.right es lo mismo que new Vector2(1,0)
+          if(golesDerecha==golesGanar){
+          fuenteDeAudio.clip = fin;
+          fuenteDeAudio.Play();
+          mostrarGanador();
+
+       }else{
+         fuenteDeAudio.clip = audioGol;
+         fuenteDeAudio.Play();
+         //Reinicio la bola
+         GetComponent<Rigidbody2D>().velocity = new Vector2(1,-1) * velocidad;
+         }
+
       }
       else if (direccion == "Izquierda"){
          //Incremento goles al de la izquierda
          golesIzquierda++;
+         
          //Lo escribo en el marcador
          contadorIzquierda.text = golesIzquierda.ToString() + " GOLES";
-         //Reinicio la bola
-         GetComponent<Rigidbody2D>().velocity = new Vector2(-1,1) * velocidad;
+
          //Vector2.right es lo mismo que new Vector2(-1,0)
+          if(golesIzquierda==golesGanar){
+          fuenteDeAudio.clip = fin;
+          fuenteDeAudio.Play();
+          mostrarGanador();
+        }else{
+         fuenteDeAudio.clip = audioGol;
+         fuenteDeAudio.Play();
+         GetComponent<Rigidbody2D>().velocity = new Vector2(-1,1) * velocidad;
+         }
+         
       }
-      //Reproduzco el sonido del gol
-      fuenteDeAudio.clip = audioGol;
-      fuenteDeAudio.Play();
+
    }
 
 
@@ -164,7 +171,7 @@ public class Bola : MonoBehaviour
     }
 
     public void reiniciarJuego(){
-            golesIzquierda = 0; golesDerecha = 0;
+      golesIzquierda = 0; golesDerecha = 0;
       velocidad = 30.0f;
       //Pongo los contadores a 0
       contadorIzquierda.text = golesIzquierda.ToString()+ " GOLES";
