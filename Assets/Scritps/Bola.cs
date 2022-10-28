@@ -171,8 +171,10 @@ public class Bola : MonoBehaviour
     }
 
     public void reiniciarJuego(){
-      golesIzquierda = 0; golesDerecha = 0;
+      golesIzquierda = 0; 
+      golesDerecha = 0;
       velocidad = 30.0f;
+      velocidadBola = 0.0f;
       //Pongo los contadores a 0
       contadorIzquierda.text = golesIzquierda.ToString()+ " GOLES";
       contadorDerecha.text = golesDerecha.ToString()+ " GOLES";
